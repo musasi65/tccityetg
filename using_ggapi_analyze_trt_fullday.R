@@ -76,10 +76,10 @@ gate_xy_tc$site<- iconv(gate_xy_tc$site, "big5", "utf8")
 
 library(gdata)
 
-?combn()
+#?combn()
 gate_xy_tc$station<-as.character(gate_xy_tc$station)
-west_station<-c("fetag-01","fetag-02","fetag-03","fetag-04","fetag-05")
-east_station<-c("fetag-06","fetag-07","fetag-08")
+west_station<-c("etag-01","etag-02","etag-03","etag-04","etag-05")
+east_station<-c("etag-06","etag-07","etag-08")
 
 
 
@@ -89,14 +89,32 @@ west_od_t<-t(west_od)
 east_od_t<-t(east_od)
 dir_w<-c("出城")
 dir_e<-c("入城")
-west_od_t<-c(west_od_t,dir_w)
-east_od_t<-c(east_od_t,dir_e)
+west_od_t<-cbind(west_od_t,dir_w)
+east_od_t<-cbind(east_od_t,dir_e)
 
 west_od_t<-as.data.frame(west_od_t)
 east_od_t<-as.data.frame(east_od_t)
 colnames(west_od_t)<-c('o_station','d_station','dir')
 colnames(east_od_t)<-c('o_station','d_station','dir')
 od_patt<-rbind(west_od_t,east_od_t)
+
+#for 五權西路
+roadpath_info<-c(
+  "segment",
+  "link",
+  "link",
+  "link",
+  "segment",
+  "link",
+  "link",
+  "segment",
+  "link",
+  "segment",
+  "segment",
+  "link",
+  "segment"
+)
+od_patt<-cbind(od_patt,roadpath_info)
 
 num=nrow(od_patt)
 
